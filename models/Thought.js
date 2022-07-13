@@ -1,5 +1,34 @@
 const { Schema, model, Types } = require('mongoose')
 
+const reactionSchema = new Schema(
+  {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
+    reactionBody: {
+      type: String,
+      required: true,
+      minLength: 1,
+      maxlength: 280,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      //NEED GETTER METHOD TO FORMAT TIMESTAMP
+    },
+  },
+  {
+    toJSON: {
+      getters: true,
+    },
+  }
+)
+
 const thoughtSchema = new Schema(
   {
     thoughtText: {
@@ -27,5 +56,13 @@ const thoughtSchema = new Schema(
     id: false,
   }
 )
+
+// Create a virtual called reactionCount that retrieves the length of the thought's reactions array field.
+thoughtSchema.virtual('reactionCount').get(function () {
+  return this.reactions.length
+})
+
+// Initialize our Thought model
+const Thought = model('Thought', thoughtSchema)
 
 module.exports = Thought
