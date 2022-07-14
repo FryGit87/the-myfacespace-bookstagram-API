@@ -9,7 +9,7 @@ const userController = {
   },
   // Get a single user
   getSingleUser(req, res) {
-    User.findOne({ _id: req.params.userId })
+    User.findOne({ _id: req.params.id })
       .select('-__v')
       .then((user) =>
         !user
@@ -26,11 +26,13 @@ const userController = {
   },
   // Delete a user and associated apps
   deleteUser(req, res) {
-    User.findOneAndDelete({ _id: req.params.userId })
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: 'No user with that ID' })
-          : Thought.deleteMany({ _id: { $in: user.thoughts } })
+    User.findOneAndDelete({ _id: req.params.id })
+      .then(
+        (user) =>
+          !user
+            ? res.status(404).json({ message: 'No user with that ID' })
+            : console.log('Deleted')
+        // : Thought.deleteMany({ _id: { $in: user.thoughts } })
       )
       .then(() => res.json({ message: 'User and associated apps deleted!' }))
       .catch((err) => res.status(500).json(err))
