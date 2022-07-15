@@ -48,6 +48,20 @@ const thoughtController = {
       })
       .catch((err) => res.status(500).json(err))
   },
+  deleteThought(req, res) {
+    Thought.findOneAndDelete({ _id: req.params.id })
+      .then(
+        (thought) =>
+          !thought
+            ? res.status(404).json({ message: 'No thought with that ID' })
+            : console.log('Deleted')
+        // : Reaction.deleteMany({ _id: { $in: thought.reactions } })
+      )
+      .then(() =>
+        res.json({ message: 'Thought and associated reactions deleted!' })
+      )
+      .catch((err) => res.status(500).json(err))
+  },
 }
 
 module.exports = thoughtController
