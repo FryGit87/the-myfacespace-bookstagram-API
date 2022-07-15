@@ -54,8 +54,12 @@ const thoughtController = {
         (thought) =>
           !thought
             ? res.status(404).json({ message: 'No thought with that ID' })
-            : console.log('Deleted')
-        // : Reaction.deleteMany({ _id: { $in: thought.reactions } })
+            : User.findOneAndUpdate(
+                { thoughts: req.params.id },
+                { $pull: { thoughts: req.params.id } },
+                { new: true }
+              )
+        // console.log('deleted')
       )
       .then(() =>
         res.json({ message: 'Thought and associated reactions deleted!' })
