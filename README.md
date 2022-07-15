@@ -62,6 +62,12 @@ http://localhost:3001/api/users/
 
 See instructional video below:
 
+
+https://user-images.githubusercontent.com/76273697/179246544-e08a8dee-bd81-441a-b572-30f7c79df4ce.mp4
+
+
+https://user-images.githubusercontent.com/76273697/179246584-0fd02f33-8cb3-4920-94a9-66ba2d7d9abf.mp4
+
 ---
 
 ## Contributors
